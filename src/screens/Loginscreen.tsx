@@ -32,7 +32,7 @@ const LoginScreen: React.FC = () => {
       />
 
       <Text style={styles.signIn}>
-        Sign in to <Text style={styles.greenText}>your Account</Text>
+        Sign in to <Text style={styles.greenText}>Your Account</Text>
       </Text>
 
       <View style={styles.inputContainer}>
@@ -88,7 +88,7 @@ const LoginScreen: React.FC = () => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('HomeScreen')}>
         <Text style={styles.loginButtonText}>Log In</Text>
       </TouchableOpacity>
 

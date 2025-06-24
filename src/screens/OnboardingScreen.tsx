@@ -4,81 +4,81 @@ import {
   Text,
   Image,
   StyleSheet,
-  Dimensions,
-  ImageSourcePropType,
   TouchableOpacity,
 } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-
-const { width, height } = Dimensions.get('window');
-
-interface Slide {
-  key: string;
-  title: string;
-  text: string;
-  image: ImageSourcePropType;
-}
-
-const slides: Slide[] = [
-  {
-    key: '1',
-    title: 'Empower Your Trading Journey',
-    text: 'Empowering You With Tools To Trade Confidently And Profitably.',
-    image: require('../../assets/image/onboard1.png'),
-  },
-  {
-    key: '2',
-    title: 'Tailor Your Market Insights',
-    text: 'Receive Personalized Updates And Alerts Based On Your Preferences.',
-    image: require('../../assets/image/onboard2.png'),
-  },
-  {
-    key: '3',
-    title: 'Explore Trading Opportunities',
-    text: 'Find Assets, Trends, And Strategies Tailored To Your Goals.',
-    image: require('../../assets/image/onboard3.png'),
-  },
-];
+import { useResponsive } from 'react-native-responsive-hook';
 
 const OnboardingScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp<any>>();
+  const { wp, hp } = useResponsive();
 
-  const renderItem = ({ item }: { item: Slide }) => (
+  const slides = [
+    {
+      key: '1',
+      title: 'Empower Your Trading Journey',
+      text: 'Empowering You With Tools To Trade Confidently And Profitably.',
+      image: require('../../assets/image/onboard1.png'),
+    },
+    {
+      key: '2',
+      title: 'Tailor Your Market Insights',
+      text: 'Receive Personalized Updates And Alerts Based On Your Preferences.',
+      image: require('../../assets/image/onboard2.png'),
+    },
+    {
+      key: '3',
+      title: 'Explore Trading Opportunities',
+      text: 'Find Assets, Trends, And Strategies Tailored To Your Goals.',
+      image: require('../../assets/image/onboard3.png'),
+    },
+  ];
+
+  const renderItem = ({ item }: any) => (
     <View style={styles.slide}>
-      <Image source={item.image} style={styles.image} resizeMode="contain" />
+      <Image source={item.image} style={[styles.image, { width: wp(92), height: hp(40) }]} resizeMode="contain" />
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={ [styles.text, styles.mb_20]}>{item.text}</Text>
+        <Text style={[styles.title, { fontSize: wp(9) }]}>{item.title}</Text>
+        <Text style={[styles.text, { fontSize: wp(4), marginBottom: hp(5) }]}>{item.text}</Text>
       </View>
     </View>
   );
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <TouchableOpacity
         onPress={() => navigation.navigate('LoginScreen')}
-        style={styles.skipContainer}
+        style={[styles.skipContainer, { top: hp(6), right: wp(5) }]}
       >
-        <Text style={styles.skip}>Skip</Text>
+        <Text style={[styles.skip, { fontSize: wp(4) }]}>Skip</Text>
       </TouchableOpacity>
+
       <AppIntroSlider
         renderItem={renderItem}
         bottomButton
-        showSkipButton
-        showPrevButton
         data={slides}
-        dotStyle={styles.dot}
-        activeDotStyle={styles.activeDot}
+        dotStyle={{
+          ...styles.dot,
+          width: wp(2.5),
+          height: wp(2.5),
+          marginBottom: hp(2.5),
+        }}
+        activeDotStyle={{
+          ...styles.activeDot,
+          width: wp(7),
+          height: hp(0.9),
+          marginBottom: hp(2.5),
+        }}
         onDone={() => navigation.navigate('LoginScreen')}
         renderNextButton={() => (
-          <View style={styles.bottomButton}>
-            <Text style={styles.bottomButtonText}>Next</Text>
+          <View style={[styles.bottomButton, { paddingVertical: hp(1.5), paddingHorizontal: wp(6), marginBottom: hp(6) }]}>
+            <Text style={[styles.bottomButtonText, { fontSize: wp(4) }]}>Next</Text>
           </View>
         )}
         renderDoneButton={() => (
-          <View style={styles.bottomButton}>
-            <Text style={styles.bottomButtonText}>Get Started</Text>
+          <View style={[styles.bottomButton, { paddingVertical: hp(2), paddingHorizontal: wp(6), marginBottom: hp(6) }]}>
+            <Text style={[styles.bottomButtonText, { fontSize: wp(4) }]}>Get Started</Text>
           </View>
         )}
       />
@@ -89,8 +89,9 @@ const OnboardingScreen: React.FC = () => {
 export default OnboardingScreen;
 
 const styles = StyleSheet.create({
-  mb_20: {
-    marginBottom: 20,
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
   },
   slide: {
     flex: 1,
@@ -100,8 +101,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   image: {
-    width: width * 0.92,
-    height: height * 0.4,
     marginBottom: 20,
   },
   textContainer: {
@@ -110,61 +109,38 @@ const styles = StyleSheet.create({
   },
   bottomButton: {
     backgroundColor: '#5DFFCD',
-    paddingVertical: 12,
-    paddingHorizontal: 25,
     borderRadius: 30,
     marginHorizontal: 10,
-    marginTop:20,
+   
   },
-
   bottomButtonText: {
     color: '#000',
     textAlign: 'center',
-    fontSize: 16,
     fontWeight: 'bold',
   },
-
   title: {
-    fontSize: 43,
     fontWeight: '700',
     marginBottom: 8,
     color: '#000',
+  
   },
   text: {
-    fontSize: 18,
     color: '#666',
     lineHeight: 28,
+   
   },
   skipContainer: {
     position: 'absolute',
-    top: 50,
-    right: 20,
     zIndex: 10,
   },
   skip: {
-    fontSize: 16,
     color: '#000',
   },
-  paginationContainer: {
-    position: 'absolute',
-    bottom: 120,
-    width: '100%',
-    alignItems: 'center',
-  },
- 
   dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
     backgroundColor: '#ccc',
     marginHorizontal: 5,
-    marginTop: 40,
   },
   activeDot: {
     backgroundColor: '#000',
-    width: '7%',
-    height: 7,
-    marginTop: '12%',
   },
-  
 });
