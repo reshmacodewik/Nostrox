@@ -11,42 +11,59 @@ import Header from '../components/Header';
 import { useResponsive } from 'react-native-responsive-hook';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import { useNavigation } from '@react-navigation/native';
 const menuItems = [
-  { label: 'Premium', icon: 'star' },
-  { label: 'Leaderboard', icon: 'leaderboard' },
-  { label: 'Reminders', icon: 'notifications-outline' },
-  { label: 'Certificates', icon: 'verified' },
-  { label: 'Partnership Deals', icon: 'handshake' },
-  { label: 'Social Media', icon: 'share-social-outline' },
-  { label: 'Billing Info', icon: 'receipt' },
-  { label: 'Contracts', icon: 'document-text-outline' },
-  { label: 'Nostrox Identity', icon: 'person' },
-  { label: 'Customer Support', icon: 'headset' },
-  { label: 'Settings', icon: 'settings' },
-  { label: 'Log Out', icon: 'log-out-outline' },
+  { label: 'Premium', icon: 'star', screen: 'PremiumScreen' },
+  { label: 'Leaderboard', icon: 'leaderboard', screen: 'LeaderboardScreen' },
+  {
+    label: 'Reminders',
+    icon: 'notifications-outline',
+    screen: 'RemindersScreen',
+  },
+  { label: 'Certificates', icon: 'verified', screen: 'CertificatesScreen' },
+  {
+    label: 'Partnership Deals',
+    icon: 'handshake',
+    screen: 'PartnershipDealsScreen',
+  },
+  {
+    label: 'Social Media',
+    icon: 'share-social-outline',
+    screen: 'SocialMediaScreen',
+  },
+  { label: 'Billing Info', icon: 'receipt', screen: 'BillingInfo' },
+  {
+    label: 'Contracts',
+    icon: 'document-text-outline',
+    screen: 'ContractsScreen',
+  },
+  { label: 'Nostrox Identity', icon: 'person', screen: 'NostroxIdentity' },
+  { label: 'Customer Support', icon: 'headset', screen: 'CustomerSupportScreen' },
+  { label: 'Settings', icon: 'settings', screen: 'SettingsScreen' },
+  { label: 'Log Out', icon: 'log-out-outline', screen: null }, // Handle logout separately
 ];
 
 const MenuScreen = () => {
   const { wp } = useResponsive();
+  const navigation = useNavigation<any>();
 
   return (
     <View style={styles.container}>
       <Header title="Menu" />
-
-      <View style={styles.profileRow}>
-        <Image
-          source={require('../../assets/icon/profile.png')}
-          style={[
-            styles.avatar,
-            { width: wp(12), height: wp(12), borderRadius: wp(6) },
-          ]}
-        />
-        <Text style={[styles.profileName, { fontSize: wp(4) }]}>
-          John Marker
-        </Text>
-      </View>
-
+      <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
+        <View style={styles.profileRow}>
+          <Image
+            source={require('../../assets/icon/profile.png')}
+            style={[
+              styles.avatar,
+              { width: wp(12), height: wp(12), borderRadius: wp(6) },
+            ]}
+          />
+          <Text style={[styles.profileName, { fontSize: wp(4) }]}>
+            John Marker
+          </Text>
+        </View>
+      </TouchableOpacity>
       <FlatList
         data={menuItems}
         keyExtractor={item => item.label}
@@ -54,9 +71,18 @@ const MenuScreen = () => {
           <TouchableOpacity
             style={[
               styles.menuItem,
-              index === 0 && { borderTopWidth: 1, borderTopColor: '#eee' }, // Top border above Premium
+              index === 0 && { borderTopWidth: 1, borderTopColor: '#eee' },
               index === menuItems.length - 1 && styles.lastItem,
             ]}
+            onPress={() => {
+              if (item.screen) {
+                navigation.navigate(item.screen);
+              } else if (item.label === 'Log Out') {
+                // Example logout logic
+                console.log('Logging out...');
+                // Add your logout code here
+              }
+            }}
           >
             {item.icon === 'notifications-outline' ||
             item.icon === 'share-social-outline' ||

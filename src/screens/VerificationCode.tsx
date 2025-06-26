@@ -1,65 +1,71 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable react-native/no-inline-styles */
+
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
   Image,
+  StyleSheet,
   Dimensions,
 } from 'react-native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
 import { useResponsive } from 'react-native-responsive-hook';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
-type RootStackParamList = {
-  ForgotPassword: undefined;
-  VerificationCode: undefined;
-  ResetPassword: undefined;
-};
 
-const VerificationCode = () => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { wp, hp } = useResponsive();
+interface VerificationCodeProps {}
+
+interface ResponsiveContext {
+  wp: (percentage: number) => number;
+  hp: (percentage: number) => number;
+}
+
+const VerificationCode: React.FC<VerificationCodeProps> = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
+  const { wp, hp }: ResponsiveContext = useResponsive();
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={{
-          marginTop: hp(4),
-          marginLeft: wp(0),
-          width: wp(7),
-          height: wp(7),
-        }}
-        onPress={() => navigation.goBack()}
-      >
+      <View style={[styles.topBackground, { height: hp(35) }]}>
+        <TouchableOpacity
+          style={{
+            marginTop: hp(0),
+            marginLeft: wp(5),
+            width: wp(6),
+            height: wp(6),
+          }}
+          onPress={() => navigation.goBack()}
+        >
+          <Image
+            source={require('../../assets/icon/arrowleft.png')}
+            style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
+          />
+        </TouchableOpacity>
         <Image
-          source={require('../../assets/icon/arrow.png')}
-          style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
+          source={require('../../assets/image/verficationcode.png')}
+          style={{
+            width: wp(35),
+            height: wp(35),
+            alignSelf: 'center',
+            marginBottom: hp(3),
+          }}
+          resizeMode="contain"
         />
-      </TouchableOpacity>
-
-      <Image
-        source={require('../../assets/image/logo.png')}
-        style={{
-          width: wp(70),
-          height: hp(10),
-          marginTop: hp(8),
-          resizeMode: 'contain',
-          alignSelf: 'center',
-        }}
-      />
-
-      <Text style={[styles.title, { marginTop: hp(5) }]}>
-        Verification <Text style={styles.highlight}>Code</Text>
-      </Text>
-
-      <Text style={[styles.subtext, { marginTop: hp(1),marginBottom:hp(2)  }]}>
+      </View>
+      <View
+        style={[
+          styles.bottomContainer,
+          { marginTop: -hp(8), paddingHorizontal: wp(8) },
+        ]}
+      >
+        <Text style={styles.signIn}>
+          Verification<Text style={styles.greenText}>Code</Text>
+        </Text>
+        <Text style={styles.subText}>
         Check your email for the recovery code to verify identity
-      </Text>
-
-      <View style={[styles.codeRow, { marginTop: hp(3), marginBottom: hp(3) }]}>
+        </Text>
+       <View style={[styles.codeRow, { marginTop: hp(3), marginBottom: hp(3) }]}>
         {Array(6)
           .fill(0)
           .map((_, index) => (
@@ -78,19 +84,13 @@ const VerificationCode = () => {
           ))}
       </View>
 
-      <TouchableOpacity
-        style={[
-          styles.button,
-          {
-            paddingVertical: hp(2),
-            paddingHorizontal: wp(25),
-            borderRadius: wp(8),
-          },
-        ]}
-        onPress={() => navigation.navigate('ResetPassword')}
-      >
-        <Text style={styles.buttonText}>Submit</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={() => navigation.navigate('ResetPassword')}
+        >
+          <Text style={styles.loginButtonText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -100,37 +100,101 @@ export default VerificationCode;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 20,
+    backgroundColor: '#5DFFCD',
   },
-
-  centerContent: {
+  topBackground: {
+    backgroundColor: '#5DFFCD',
     justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '15%',
-    paddingHorizontal: 0,
+  },
+  bottomContainer: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: wp(10),
+    borderTopRightRadius: wp(10),
+    paddingTop: hp(4),
+    flex: 1,
+  },
+  signIn: {
+    fontSize: wp(6.5),
+    fontWeight: '700',
+    color: '#000',
+    textAlign: 'center',
+  },
+  greenText: {
+    color: '#5DFFCD',
+  },
+  subText: {
+    fontWeight: '400',
+    textAlign: 'center',
+    color: '#000',
+    marginVertical: hp(1.5),
+    fontSize: wp(3.1),
+  },
+  inputContainer: {
+    marginTop: hp(2),
   },
   label: {
-    fontSize: 12,
-    fontWeight: '500',
-    lineHeight: hp(1),
+    fontSize: wp(3.5),
     color: '#000',
-
-    marginBottom: hp(0),
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  highlight: {
-    color: '#3CF2B3',
-  },
-  subtext: {
-    fontSize: 12,
+    marginBottom: hp(0.5),
     fontWeight: '500',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#E7E7E9',
+    borderRadius: wp(8),
+    paddingHorizontal: wp(4),
+    paddingVertical: hp(1.5),
+    fontSize: wp(4),
     color: '#000',
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconContainer: {
+    position: 'absolute',
+    right: wp(4),
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: hp(1.5),
+  },
+  rememberRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rememberText: {
+    fontSize: wp(3.5),
+    color: '#000',
+    marginLeft: wp(2),
+  },
+  forgotText: {
+    fontSize: wp(3.5),
+    color: '#000',
+  },
+  loginButton: {
+    backgroundColor: '#5DFFCD',
+    paddingVertical: hp(1.6),
+    borderRadius: wp(10),
+    marginTop: hp(4),
+    alignItems: 'center',
+  },
+  loginButtonText: {
+    color: '#000',
+    fontWeight: '700',
+    fontSize: wp(4.5),
+  },
+  footerText: {
+    marginTop: hp(2.5),
     textAlign: 'center',
+    fontSize: wp(3.5),
+    color: '#000',
+  },
+  signupText: {
+    color: '#5DFFCD',
+    fontWeight: '700',
   },
   codeRow: {
     flexDirection: 'row',
@@ -144,21 +208,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginHorizontal: 5,
   },
-  button: {
-    backgroundColor: '#3CF2B3',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
 });
 
-// function wp(percentage: number): number {
-//   const { width } = Dimensions.get('window');
-//   return (width * percentage) / 100;
-// }
+function wp(percentage: number): number {
+  const { width } = Dimensions.get('window');
+  return (width * percentage) / 100;
+}
 function hp(percentage: number): number {
   const { height } = Dimensions.get('window');
   return (height * percentage) / 100;

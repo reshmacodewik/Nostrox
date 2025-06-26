@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import {
   View,
@@ -6,17 +7,16 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  Dimensions,
 } from 'react-native';
 import { useResponsive } from 'react-native-responsive-hook';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { Dimensions } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const LoginScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp<any>>();
   const { wp, hp } = useResponsive();
-  //   const { width, height } = Dimensions.get('window'); // width %, height %
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,82 +25,98 @@ const LoginScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../assets/image/logo.png')}
-        style={{ width: wp(70), height: hp(10), alignSelf: 'center' }}
-        resizeMode="contain"
-      />
-
-      <Text style={styles.signIn}>
-        Sign in to <Text style={styles.greenText}>Your Account</Text>
-      </Text>
-
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Email</Text>
-        <TextInput
-          placeholder="Enter your email"
-          placeholderTextColor="#aaa"
-          style={styles.input}
-          value={email}
-          onChangeText={setEmail}
+      <View style={[styles.topBackground, { height: hp(35) }]}>
+        <Image
+          source={require('../../assets/image/login.png')}
+          style={{
+            width: wp(36),
+            height: wp(36),
+            alignSelf: 'center',
+            marginTop: hp(0),
+          }}
+          resizeMode="contain"
         />
       </View>
-
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Password</Text>
-        <View style={styles.passwordContainer}>
+      <View
+        style={[
+          styles.bottomContainer,
+          { marginTop: -hp(8), paddingHorizontal: wp(8) },
+        ]}
+      >
+        <Text style={styles.signIn}>
+          Sign in to <Text style={styles.greenText}>your Account</Text>
+        </Text>
+        <Text style={styles.subText}>
+          Create an account or log in to explore our app
+        </Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Email</Text>
           <TextInput
-            placeholder="Enter your password"
+            placeholder="Enter your email"
             placeholderTextColor="#aaa"
-            style={[styles.input, { flex: 1 }]}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={!showPassword}
+            style={styles.input}
+            value={email}
+            onChangeText={setEmail}
           />
-          <TouchableOpacity
-            style={styles.iconContainer}
-            onPress={() => setShowPassword(!showPassword)}
-          >
-            <Ionicons
-              name={showPassword ? 'eye-off-outline' : 'eye-outline'}
-              size={24}
-              color="gray"
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Password</Text>
+          <View style={styles.passwordContainer}>
+            <TextInput
+              placeholder="Enter your password"
+              placeholderTextColor="#aaa"
+              style={[styles.input, { flex: 1 }]}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
             />
+            <TouchableOpacity
+              style={styles.iconContainer}
+              onPress={() => setShowPassword(!showPassword)}
+            >
+              <Ionicons
+                name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                size={24}
+                color="gray"
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={styles.rememberRow}
+            onPress={() => setRememberMe(!rememberMe)}
+          >
+            <CheckBox
+              value={rememberMe}
+              onValueChange={setRememberMe}
+              tintColors={{ true: '#5DFFCD', false: '#000' }}
+            />
+            <Text style={styles.rememberText}>Remember me</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ForgotPassword')}
+          >
+            <Text style={styles.forgotText}>Forgot Password ?</Text>
           </TouchableOpacity>
         </View>
-      </View>
-
-      <View style={styles.row}>
         <TouchableOpacity
-          style={styles.row}
-          onPress={() => setRememberMe(!rememberMe)}
+          style={styles.loginButton}
+          onPress={() => navigation.navigate('HomeScreen')}
         >
-          <CheckBox
-            value={rememberMe}
-            onValueChange={setRememberMe}
-            tintColors={{ true: '#5DFFCD', false: '#000000' }}
-          />
-          <Text style={styles.rememberText}> Remember me</Text>
+          <Text style={styles.loginButtonText}>Log In</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-          <Text style={styles.forgotText}>Forgot Password ?</Text>
-        </TouchableOpacity>
-      </View>
-
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('HomeScreen')}>
-        <Text style={styles.loginButtonText}>Log In</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.footerText}>
-        Don’t have an account?{' '}
-        <Text
-          style={styles.signupText}
-          onPress={() => navigation.navigate('SignUp')}
-        >
-          Sign Up
+        <Text style={styles.footerText}>
+          Don’t have an account?{' '}
+          <Text
+            style={styles.signupText}
+            onPress={() => navigation.navigate('SignUp')}
+          >
+            Sign Up
+          </Text>
         </Text>
-      </Text>
+      </View>
     </View>
   );
 };
@@ -110,45 +126,56 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: wp(8),
+    backgroundColor: '#5DFFCD',
+  },
+  topBackground: {
+    backgroundColor: '#5DFFCD',
     justifyContent: 'center',
+  },
+  bottomContainer: {
     backgroundColor: '#fff',
+    borderTopLeftRadius: wp(10),
+    borderTopRightRadius: wp(10),
+    paddingTop: hp(4),
+    flex: 1,
   },
   signIn: {
-    lineHeight: hp(4),
-    fontSize: 26,
+    fontSize: wp(6.5),
     fontWeight: '700',
-    textAlign: 'center',
-    marginVertical: hp(6),
-    marginBottom: hp(4),
     color: '#000',
+    textAlign: 'center',
   },
   greenText: {
     color: '#5DFFCD',
+  },
+  subText: {
+    fontWeight:'400',
+    textAlign: 'center',
+    color: '#000',
+    marginVertical: hp(1.5),
+    fontSize: wp(3.1),
   },
   inputContainer: {
     marginTop: hp(2),
   },
   label: {
-    fontSize: 12,
-    fontWeight: '500',
-    lineHeight: hp(1),
+    fontSize: wp(3.5),
     color: '#000',
-    marginBottom: hp(1),
+    marginBottom: hp(0.5),
+    fontWeight: '500',
   },
   input: {
     borderWidth: 1,
     borderColor: '#E7E7E9',
-    borderRadius: wp(10),
+    borderRadius: wp(8),
     paddingHorizontal: wp(4),
-    paddingVertical: hp(1.1),
+    paddingVertical: hp(1.5),
     fontSize: wp(4),
     color: '#000',
   },
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    position: 'relative',
   },
   iconContainer: {
     position: 'absolute',
@@ -158,22 +185,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: hp(0.5),
-    fontWeight: '500',
+    marginTop: hp(1.5),
+  },
+  rememberRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   rememberText: {
-    fontSize: 12,
+    fontSize: wp(3.5),
     color: '#000',
-    fontWeight: '500',
+    marginLeft: wp(2),
   },
   forgotText: {
-    marginTop: hp(0.5),
-    fontSize: 12,
+    fontSize: wp(3.5),
     color: '#000',
   },
   loginButton: {
     backgroundColor: '#5DFFCD',
-    paddingVertical: hp(1.8),
+    paddingVertical: hp(1.6),
     borderRadius: wp(10),
     marginTop: hp(4),
     alignItems: 'center',
@@ -186,7 +215,7 @@ const styles = StyleSheet.create({
   footerText: {
     marginTop: hp(2.5),
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: wp(3.5),
     color: '#000',
   },
   signupText: {

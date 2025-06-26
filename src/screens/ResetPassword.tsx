@@ -1,29 +1,21 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
   Image,
+  StyleSheet,
   Dimensions,
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useResponsive } from 'react-native-responsive-hook';
-type RootStackParamList = {
-  ForgotPassword: undefined;
-  ResetPassword: undefined;
-  // Add other routes here as needed
-};
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const ResetPassword = () => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
+const LoginScreen: React.FC = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
   const { wp, hp } = useResponsive();
-  //   const { width, height } = Dimensions.get('window'); // width %, height %
 
   const [confirmpassword, setconfirmpassword] = useState('');
   const [password, setPassword] = useState('');
@@ -32,152 +24,144 @@ const ResetPassword = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={{
-          marginTop: hp(4),
-          marginLeft: wp(0),
-          width: wp(6),
-          height: wp(6),
-        }}
-        onPress={() => navigation.goBack()}
-      >
+      <View style={[styles.topBackground, { height: hp(35) }]}>
         <Image
-          source={require('../../assets/icon/arrow.png')}
-          style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
+          source={require('../../assets/image/forgotpassword.png')}
+          style={{
+            width: wp(36),
+            height: wp(36),
+            alignSelf: 'center',
+            marginTop: hp(0),
+          }}
+          resizeMode="contain"
         />
-      </TouchableOpacity>
-
-      <Image
-        source={require('../../assets/image/logo.png')}
-        style={{
-          width: wp(70),
-          height: hp(10),
-          alignSelf: 'center',
-          marginTop: hp(8),
-        }}
-        resizeMode="contain"
-      />
-
-       <Text style={[styles.title, { marginTop: hp(5) }]}>
-             Reset <Text style={styles.highlight}>Password</Text>
-            </Text>
-      
-            <Text style={[styles.subtext, { marginTop: hp(1),marginBottom:hp(3) }]}>
-             Enter a new password to reset your account access
-            </Text>
-
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>New Password</Text>
-        <View style={styles.passwordContainer}>
-          <TextInput
-            placeholder="Enter your new password"
-            placeholderTextColor="#aaa"
-            style={[styles.input, { flex: 1 }]}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={!showPassword}
-          />
-          <TouchableOpacity
-            style={styles.iconContainer}
-            onPress={() => setShowPassword(!showPassword)}
-          >
-            <Ionicons
-              name={showPassword ? 'eye-off-outline' : 'eye-outline'}
-              size={24}
-              color="gray"
-            />
-          </TouchableOpacity>
-        </View>
       </View>
-
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Confirm Password</Text>
-        <View style={styles.passwordContainer}>
-          <TextInput
-            placeholder="Enter your new password"
-            placeholderTextColor="#aaa"
-            style={[styles.input, { flex: 1 }]}
-            value={confirmpassword}
-            onChangeText={setconfirmpassword}
-            secureTextEntry={!showcp}
-          />
-          <TouchableOpacity
-            style={styles.iconContainer}
-            onPress={() => setshowcp(!showcp)}
-          >
-            <Ionicons
-              name={showcp ? 'eye-off-outline' : 'eye-outline'}
-              size={24}
-              color="gray"
+      <View
+        style={[
+          styles.bottomContainer,
+          { marginTop: -hp(8), paddingHorizontal: wp(8) },
+        ]}
+      >
+        <Text style={styles.signIn}>
+          Reset <Text style={styles.greenText}>Password</Text>
+        </Text>
+        <Text style={styles.subText}>
+          Enter a new password to reset your account access
+        </Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>New Password</Text>
+          <View style={styles.passwordContainer}>
+            <TextInput
+              placeholder="Enter your new password"
+              placeholderTextColor="#aaa"
+              style={[styles.input, { flex: 1 }]}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
             />
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.iconContainer}
+              onPress={() => setShowPassword(!showPassword)}
+            >
+              <Ionicons
+                name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                size={24}
+                color="gray"
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
 
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Reset Password</Text>
-      </TouchableOpacity>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Confirm Password</Text>
+          <View style={styles.passwordContainer}>
+            <TextInput
+              placeholder="Enter your new password"
+              placeholderTextColor="#aaa"
+              style={[styles.input, { flex: 1 }]}
+              value={confirmpassword}
+              onChangeText={setconfirmpassword}
+              secureTextEntry={!showcp}
+            />
+            <TouchableOpacity
+              style={styles.iconContainer}
+              onPress={() => setshowcp(!showcp)}
+            >
+              <Ionicons
+                name={showcp ? 'eye-off-outline' : 'eye-outline'}
+                size={24}
+                color="gray"
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={() => navigation.navigate('HomeScreen')}
+        >
+          <Text style={styles.loginButtonText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
-export default ResetPassword;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: wp(8),
+    backgroundColor: '#5DFFCD',
+  },
+  topBackground: {
+    backgroundColor: '#5DFFCD',
+    justifyContent: 'center',
+  },
+  bottomContainer: {
     backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-    subtext: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#000',
-    textAlign: 'center',
-  },
-  highlight: {
-    color: '#3CF2B3',
+    borderTopLeftRadius: wp(10),
+    borderTopRightRadius: wp(10),
+    paddingTop: hp(4),
+    flex: 1,
   },
   signIn: {
-    lineHeight: hp(4),
-    fontSize: 26,
+    fontSize: wp(6.5),
     fontWeight: '700',
-    textAlign: 'center',
-    marginVertical: hp(6),
-    marginBottom: hp(4),
     color: '#000',
+    textAlign: 'center',
   },
   greenText: {
     color: '#5DFFCD',
+  },
+  subText: {
+    fontWeight: '400',
+    textAlign: 'center',
+    color: '#000',
+    marginVertical: hp(1.5),
+    fontSize: wp(3.1),
   },
   inputContainer: {
     marginTop: hp(2),
   },
   label: {
-    fontSize: 12,
-    fontWeight: '500',
-    lineHeight: hp(1),
+    fontSize: wp(3.2),
     color: '#000',
-    marginBottom: hp(1),
+    marginBottom: hp(0.5),
+    fontWeight: '500',
   },
   input: {
     borderWidth: 1,
     borderColor: '#E7E7E9',
-    borderRadius: wp(10),
+    borderRadius: wp(8),
     paddingHorizontal: wp(4),
-    paddingVertical: hp(1.1),
+    paddingVertical: hp(1.5),
     fontSize: wp(4),
     color: '#000',
   },
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    position: 'relative',
   },
   iconContainer: {
     position: 'absolute',
@@ -187,22 +171,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: hp(0.5),
-    fontWeight: '500',
+    marginTop: hp(1.5),
+  },
+  rememberRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   rememberText: {
-    fontSize: 12,
+    fontSize: wp(3.5),
     color: '#000',
-    fontWeight: '500',
+    marginLeft: wp(2),
   },
   forgotText: {
-    marginTop: hp(0.5),
-    fontSize: 12,
+    fontSize: wp(3.5),
     color: '#000',
   },
   loginButton: {
     backgroundColor: '#5DFFCD',
-    paddingVertical: hp(1.8),
+    paddingVertical: hp(1.6),
     borderRadius: wp(10),
     marginTop: hp(4),
     alignItems: 'center',
@@ -212,7 +198,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: wp(4.5),
   },
-
+  footerText: {
+    marginTop: hp(2.5),
+    textAlign: 'center',
+    fontSize: wp(3.5),
+    color: '#000',
+  },
   signupText: {
     color: '#5DFFCD',
     fontWeight: '700',
