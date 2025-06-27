@@ -4,21 +4,25 @@ import Header from '../components/Header';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useResponsive } from 'react-native-responsive-hook';
+import { useNavigation } from '@react-navigation/native';
 
 interface Tool {
   label: string;
   icon: string;
+   screen?: string;
+  
 }
 
 const tools: Tool[] = [
-  { label: 'Ticker', icon: 'leaderboard' },
-  { label: "Trader's Analysis", icon: 'analytics' },
-  { label: 'Equity Simulator', icon: 'bar-chart' },
-  { label: 'Statistical App', icon: 'insert-chart' },
+  { label: 'Ticker', icon: 'leaderboard', screen: 'TickerScreen'},
+  { label: "Trader's Analysis", icon: 'analytics',screen: 'TradersAnalysis' },
+  { label: 'Equity Simulator', icon: 'bar-chart',screen: 'EquitySimulator' },
+  { label: 'Statistical App', icon: 'insert-chart',screen: 'StatisticalApp' },
 ];
 
 const ToolsScreen: React.FC = () => {
   const { wp, hp } = useResponsive();
+   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -35,7 +39,11 @@ const ToolsScreen: React.FC = () => {
                 marginBottom: hp(1.5),
               },
             ]}
-            onPress={() => {}}
+            onPress={() => {
+              if (tool.screen) {
+                navigation.navigate(tool.screen as never);
+              }
+            }}
           >
             <View style={styles.iconRow}>
               <MaterialIcons

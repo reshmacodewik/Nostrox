@@ -18,7 +18,7 @@ const menuItems = [
   {
     label: 'Reminders',
     icon: 'notifications-outline',
-    screen: 'RemindersScreen',
+    screen: 'ReminderScreen',
   },
   { label: 'Certificates', icon: 'verified', screen: 'CertificatesScreen' },
   {

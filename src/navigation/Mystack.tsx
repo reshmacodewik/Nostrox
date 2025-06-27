@@ -23,6 +23,13 @@ import SettingsScreen from '../screens/MenuScreen/Settings/SettingsScreen';
 import TermsScreen from '../screens/MenuScreen/Settings/TermsScreen';
 import PrivacyScreen from '../screens/MenuScreen/Settings/PrivacyScreen';
 import ContractsScreen from '../screens/MenuScreen/ContractsScreen ';
+import PremiumScreen from '../screens/MenuScreen/Premium';
+import EquitySimulator from '../screens/Tools/EquitySimulator';
+import TickerScreen from '../screens/Tools/TickerScreen';
+import TradersAnalysis from '../screens/Tools/TradersAnalysis';
+import ReminderScreen from '../screens/MenuScreen/Reminder/Reminders';
+import AddReminder from '../screens/MenuScreen/Reminder/AddReminder';
+import StatisticalApp from '../screens/Tools/StatisticalApp';
 
 // Define navigation param types
 export type RootStackParamList = {
@@ -48,6 +55,13 @@ export type RootStackParamList = {
   TermsScreen: undefined;
   PrivacyScreen: undefined;
   ContractsScreen: undefined;
+  PremiumScreen: undefined;
+  EquitySimulator: undefined;
+  ReminderScreen: undefined;
+  AddReminder: undefined;
+  TickerScreen: undefined;
+  TradersAnalysis: undefined;
+  StatisticalApp: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -82,10 +96,17 @@ const MyStack: React.FC = () => {
       />
       <Stack.Screen name="CertificatesScreen" component={CertificatesScreen} />
       <Stack.Screen name="LeaderboardScreen" component={LeaderboardScreen} />
-      <Stack.Screen name="SettingsScreen" component={SettingsScreen}/>
-       <Stack.Screen name="TermsScreen" component={TermsScreen}/>
-       <Stack.Screen name="PrivacyScreen" component={PrivacyScreen}/>
-        <Stack.Screen name="ContractsScreen" component={ContractsScreen}/>
+      <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+      <Stack.Screen name="TermsScreen" component={TermsScreen} />
+      <Stack.Screen name="PrivacyScreen" component={PrivacyScreen} />
+      <Stack.Screen name="ContractsScreen" component={ContractsScreen} />
+      <Stack.Screen name="PremiumScreen" component={PremiumScreen} />
+      <Stack.Screen name="EquitySimulator" component={EquitySimulator} />
+      <Stack.Screen name="ReminderScreen" component={ReminderScreen} />
+      <Stack.Screen name="AddReminder" component={AddReminder} />
+      <Stack.Screen name="TickerScreen" component={TickerScreen} />
+      <Stack.Screen name="TradersAnalysis" component={TradersAnalysis} />
+      <Stack.Screen name="StatisticalApp" component={StatisticalApp} />
     </Stack.Navigator>
   );
 };

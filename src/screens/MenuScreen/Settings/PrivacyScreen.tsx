@@ -1,11 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useResponsive } from 'react-native-responsive-hook';
 import Header from '../../../components/Header';
-import { useNavigation } from '@react-navigation/native';
+
 
 const PrivacyScreen: React.FC = () => {
   const { wp, hp } = useResponsive();
-  const navigation = useNavigation();
   const styles = getStyles(wp, hp);
 
   return (

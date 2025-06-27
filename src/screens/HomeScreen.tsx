@@ -39,24 +39,96 @@ type AccountData = {
 
 const dummyData: Record<TabName, AccountData[]> = {
   Challenge: [
-    { id: '1', login: '474848955', balance: '$225,500.00', equity: '$225,500.00', end: '07 Feb 2021' },
-    { id: '2', login: '123456789', balance: '$125,000.00', equity: '$125,000.00', end: '10 Mar 2021' },
-    { id: '3', login: '998877665', balance: '$300,000.00', equity: '$300,000.00', end: '05 Apr 2021' },
+    {
+      id: '1',
+      login: '474848955',
+      balance: '$225,500.00',
+      equity: '$225,500.00',
+      end: '07 Feb 2021',
+    },
+    {
+      id: '2',
+      login: '123456789',
+      balance: '$125,000.00',
+      equity: '$125,000.00',
+      end: '10 Mar 2021',
+    },
+    {
+      id: '3',
+      login: '998877665',
+      balance: '$300,000.00',
+      equity: '$300,000.00',
+      end: '05 Apr 2021',
+    },
   ],
   Verification: [
-    { id: '3', login: '998877665', balance: '$300,000.00', equity: '$300,000.00', end: '05 Apr 2021' },
-    { id: '4', login: '474848955', balance: '$225,500.00', equity: '$225,500.00', end: '07 Feb 2021' },
-    { id: '5', login: '474848955', balance: '$225,500.00', equity: '$225,500.00', end: '07 Feb 2021' },
+    {
+      id: '3',
+      login: '998877665',
+      balance: '$300,000.00',
+      equity: '$300,000.00',
+      end: '05 Apr 2021',
+    },
+    {
+      id: '4',
+      login: '474848955',
+      balance: '$225,500.00',
+      equity: '$225,500.00',
+      end: '07 Feb 2021',
+    },
+    {
+      id: '5',
+      login: '474848955',
+      balance: '$225,500.00',
+      equity: '$225,500.00',
+      end: '07 Feb 2021',
+    },
   ],
   'Nostrox Account': [
-    { id: '3', login: '998877665', balance: '$300,000.00', equity: '$300,000.00', end: '05 Apr 2021' },
-    { id: '4', login: '474848955', balance: '$225,500.00', equity: '$225,500.00', end: '07 Feb 2021' },
-    { id: '5', login: '474848955', balance: '$225,500.00', equity: '$225,500.00', end: '07 Feb 2021' },
+    {
+      id: '3',
+      login: '998877665',
+      balance: '$300,000.00',
+      equity: '$300,000.00',
+      end: '05 Apr 2021',
+    },
+    {
+      id: '4',
+      login: '474848955',
+      balance: '$225,500.00',
+      equity: '$225,500.00',
+      end: '07 Feb 2021',
+    },
+    {
+      id: '5',
+      login: '474848955',
+      balance: '$225,500.00',
+      equity: '$225,500.00',
+      end: '07 Feb 2021',
+    },
   ],
   'Free Trial': [
-    { id: '3', login: '998877665', balance: '$300,000.00', equity: '$300,000.00', end: '05 Apr 2021' },
-    { id: '4', login: '474848955', balance: '$225,500.00', equity: '$225,500.00', end: '07 Feb 2021' },
-    { id: '5', login: '474848955', balance: '$225,500.00', equity: '$225,500.00', end: '07 Feb 2021' },
+    {
+      id: '3',
+      login: '998877665',
+      balance: '$300,000.00',
+      equity: '$300,000.00',
+      end: '05 Apr 2021',
+    },
+    {
+      id: '4',
+      login: '474848955',
+      balance: '$225,500.00',
+      equity: '$225,500.00',
+      end: '07 Feb 2021',
+    },
+    {
+      id: '5',
+      login: '474848955',
+      balance: '$225,500.00',
+      equity: '$225,500.00',
+      end: '07 Feb 2021',
+    },
   ],
   'Modifications Requests': [],
 };
@@ -123,8 +195,13 @@ const HomeScreen: React.FC = () => {
       <View style={styles.header}>
         <View style={styles.headerTop}>
           <Text style={styles.headerTitle}>Accounts</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('NotificationsScreen')}>
-            <Image source={require('../../assets/icon/bell.png')} style={styles.profileIcon} />
+          <TouchableOpacity
+            onPress={() => navigation.navigate('NotificationsScreen')}
+          >
+            <Image
+              source={require('../../assets/icon/bell.png')}
+              style={styles.profileIcon}
+            />
           </TouchableOpacity>
         </View>
 
@@ -136,16 +213,12 @@ const HomeScreen: React.FC = () => {
           {tabs.map(tab => (
             <TouchableOpacity
               key={tab}
-              style={[
-                styles.tabButton,
-                activeTab === tab && styles.activeTab,
-              ]}
+              style={[styles.tabButton, activeTab === tab && styles.activeTab]}
               onPress={() => setActiveTab(tab)}
             >
-              <Text style={[
-                styles.tabText,
-                activeTab === tab && { color: '#000' },
-              ]}>
+              <Text
+                style={[styles.tabText, activeTab === tab && { color: '#000' }]}
+              >
                 {tab}
               </Text>
             </TouchableOpacity>
@@ -167,7 +240,9 @@ const HomeScreen: React.FC = () => {
 
       {activeTab === 'Challenge' && (
         <TouchableOpacity style={styles.challengeBtn}>
-          <Text style={styles.challengeText}>Apply for on Nostrox Challenge</Text>
+          <Text style={styles.challengeText}>
+            Apply for on Nostrox Challenge
+          </Text>
         </TouchableOpacity>
       )}
     </SafeAreaView>
@@ -239,10 +314,8 @@ const getStyles = (wp: (val: number) => number, hp: (val: number) => number) =>
       margin: wp(3),
       padding: wp(4),
       borderRadius: wp(2),
-      elevation: 3,
-      shadowColor: '#000',
-      shadowOpacity: 0.1,
-      shadowRadius: 3,
+      borderWidth: 1,
+      borderColor:'#D7D7D7'
     },
     cardTopRow: {
       flexDirection: 'row',
