@@ -8,13 +8,13 @@ import {
 } from 'react-native';
 import { useResponsive } from 'react-native-responsive-hook';
 import Header from '../../components/Header';
-import InputSpinner from 'react-native-input-spinner';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const EquitySimulator: React.FC = () => {
   const { wp, hp } = useResponsive();
   const styles = getStyles(wp, hp);
 
+  const [capital, setCapital] = useState(500000);
   const [winRate, setWinRate] = useState(500);
   const [rrr, setRRR] = useState(0.6);
   const [iterations, setIterations] = useState(100);
@@ -25,8 +25,14 @@ const EquitySimulator: React.FC = () => {
 
   const handleRun = () => {
     setShowResults(true);
-    // You can add logic to compute results here
+    // Logic for simulation goes here
   };
+
+  const handleIncrement = (value: number, step: number, max: number) =>
+    Math.min(value + step, max);
+
+  const handleDecrement = (value: number, step: number, min: number) =>
+    Math.max(value - step, min);
 
   return (
     <View style={styles.container}>
@@ -45,8 +51,22 @@ const EquitySimulator: React.FC = () => {
 
         <View style={styles.formSection}>
           {[
-            { label: 'Capital', value: winRate, setter: setWinRate },
-            { label: 'Win Rate', value: winRate, setter: setWinRate },
+            {
+              label: 'Capital',
+              value: capital,
+              setter: setCapital,
+              step: 1000,
+              min: 1000,
+              max: 10000000,
+            },
+            {
+              label: 'Win Rate',
+              value: winRate,
+              setter: setWinRate,
+              step: 10,
+              min: 0,
+              max: 1000,
+            },
             {
               label: 'RRR',
               value: rrr,
@@ -54,29 +74,66 @@ const EquitySimulator: React.FC = () => {
               step: 0.1,
               min: 0.1,
               max: 10,
+              isDecimal: true,
             },
-            { label: 'Iterations', value: iterations, setter: setIterations },
-            { label: 'Lines', value: lines, setter: setLines, max: 20 },
+            {
+              label: 'Iterations',
+              value: iterations,
+              setter: setIterations,
+              step: 10,
+              min: 1,
+              max: 10000,
+            },
+            {
+              label: 'Lines',
+              value: lines,
+              setter: setLines,
+              step: 1,
+              min: 1,
+              max: 20,
+            },
           ].map((item, idx) => (
             <View key={idx} style={styles.card}>
               <Text style={styles.label}>{item.label}</Text>
-              <InputSpinner
-                min={item.min ?? 0}
-                max={item.max ?? 1000}
-                step={item.step ?? 1}
-                value={item.value}
-                onChange={item.setter}
-                height={hp(5.5)}
-                style={styles.spinner}
-                inputStyle={styles.inputText}
-                buttonStyle={styles.button}
-                buttonLeft={
+              <View style={styles.inputRow}>
+                <TouchableOpacity
+                  onPress={() =>
+                    item.setter(
+                      handleDecrement(
+                        item.value,
+                        item.step,
+                        item.min
+                      )
+                    )
+                  }
+                  style={styles.arrowButton}
+                >
                   <Icon name="arrow-back-ios" size={wp(4)} color="#000" />
-                }
-                buttonRight={
+                </TouchableOpacity>
+
+                <View style={styles.valueBox}>
+                  <Text style={styles.valueText}>
+                    {item.isDecimal
+                      ? item.value.toFixed(2)
+                      : item.value.toLocaleString()}
+                  </Text>
+                </View>
+
+                <TouchableOpacity
+                  onPress={() =>
+                    item.setter(
+                      handleIncrement(
+                        item.value,
+                        item.step,
+                        item.max
+                      )
+                    )
+                  }
+                  style={styles.arrowButton}
+                >
                   <Icon name="arrow-forward-ios" size={wp(4)} color="#000" />
-                }
-              />
+                </TouchableOpacity>
+              </View>
             </View>
           ))}
 
@@ -104,30 +161,29 @@ const EquitySimulator: React.FC = () => {
 
           <View style={styles.card}>
             <Text style={styles.label}>Risk</Text>
-            <InputSpinner
-              min={1000}
-              max={1000000}
-              step={1000}
-              value={risk}
-              onChange={setRisk}
-              height={hp(5.5)}
-              style={styles.spinner}
-              inputStyle={styles.inputText}
-              buttonStyle={{
-                borderRadius: wp(100),
-                width: wp(5),
-                height: wp(10),
-                backgroundColor: 'red',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              buttonLeft={
-                <Icon name="arrow-back-ios" size={wp(5)} color="#000" />
-              }
-              buttonRight={
-                <Icon name="arrow-forward-ios" size={wp(5)} color="#fff" />
-              }
-            />
+            <View style={styles.inputRow}>
+              <TouchableOpacity
+                onPress={() =>
+                  setRisk(handleDecrement(risk, 1000, 1000))
+                }
+                style={styles.arrowButton}
+              >
+                <Icon name="arrow-back-ios" size={wp(4)} color="#000" />
+              </TouchableOpacity>
+
+              <View style={styles.valueBox}>
+                <Text style={styles.valueText}>{risk.toLocaleString()}</Text>
+              </View>
+
+              <TouchableOpacity
+                onPress={() =>
+                  setRisk(handleIncrement(risk, 1000, 1000000))
+                }
+                style={styles.arrowButton}
+              >
+                <Icon name="arrow-forward-ios" size={wp(4)} color="#000" />
+              </TouchableOpacity>
+            </View>
           </View>
 
           <TouchableOpacity style={styles.runButton} onPress={handleRun}>
@@ -175,9 +231,9 @@ const getStyles = (wp: (val: number) => number, hp: (val: number) => number) =>
     },
     label: {
       fontSize: wp(3.8),
-      fontWeight: '500',
+      fontWeight: 'bold',
       marginBottom: hp(1),
-      color: '#333',
+      color: '#000',
     },
     card: {
       backgroundColor: '#C9FFEE',
@@ -187,19 +243,28 @@ const getStyles = (wp: (val: number) => number, hp: (val: number) => number) =>
       borderWidth: 1,
       borderColor: '#C9FFEE',
     },
-    spinner: {
+    inputRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
       backgroundColor: '#fff',
       borderRadius: wp(3),
       borderWidth: 1,
       borderColor: '#D7D7D7',
+      paddingHorizontal: wp(2),
+      height: hp(5.5),
     },
-    inputText: {
+    arrowButton: {
+      padding: wp(2),
+    },
+    valueBox: {
+      flex: 1,
+      alignItems: 'center',
+    },
+    valueText: {
       fontSize: wp(4),
       fontWeight: '600',
       color: '#000',
-    },
-    button: {
-      backgroundColor: '#red',
     },
     toggleRow: {
       flexDirection: 'row',
@@ -224,8 +289,8 @@ const getStyles = (wp: (val: number) => number, hp: (val: number) => number) =>
     },
     runButton: {
       backgroundColor: '#74FFD3',
-      paddingVertical: hp(2),
-      borderRadius: wp(6),
+      paddingVertical: hp(1.8),
+      borderRadius: wp(10),
       marginTop: hp(3),
       alignItems: 'center',
     },

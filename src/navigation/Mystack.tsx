@@ -30,6 +30,7 @@ import TradersAnalysis from '../screens/Tools/TradersAnalysis';
 import ReminderScreen from '../screens/MenuScreen/Reminder/Reminders';
 import AddReminder from '../screens/MenuScreen/Reminder/AddReminder';
 import StatisticalApp from '../screens/Tools/StatisticalApp';
+import AccountScreen from '../screens/AccountScreen';
 
 // Define navigation param types
 export type RootStackParamList = {
@@ -40,6 +41,7 @@ export type RootStackParamList = {
   VerificationCode: undefined;
   ResetPassword: undefined;
   HomeScreen: undefined;
+  AccountScreen: undefined;
   NotificationsScreen: undefined;
   CalendarScreen: undefined;
   Menu: undefined;
@@ -76,6 +78,7 @@ const MyStack: React.FC = () => {
       <Stack.Screen name="VerificationCode" component={VerificationCode} />
       <Stack.Screen name="ResetPassword" component={ResetPassword} />
       <Stack.Screen name="HomeScreen" component={BottomTabNavigator} />
+        <Stack.Screen name="AccountScreen" component={AccountScreen} />
       <Stack.Screen
         name="NotificationsScreen"
         component={NotificationsScreen}

@@ -70,46 +70,49 @@ const CalendarScreen: React.FC = () => {
           </TouchableOpacity>
           <Text style={styles.dateRange}>Jun 2 - Jun 6, 2025</Text>
         </View>
+       <View style={styles.daysContainer}>
+  <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+    <View style={styles.daysRow}>
+      {[
+        { day: 'Mon', date: '2' },
+        { day: 'Tue', date: '3' },
+        { day: 'Wed', date: '4' },
+        { day: 'Thu', date: '5' },
+        { day: 'Fri', date: '6' },
+        { day: 'Sat', date: '7' },
+        { day: 'Sun', date: '8' },
+      ].map((item, index) => (
+        <TouchableOpacity
+          key={index}
+          style={[
+            styles.dayButton,
+            item.day === 'Thu' && styles.activeDayButton,
+          ]}
+        >
+          <Text
+            style={[
+              styles.dayText,
+              item.day === 'Thu' && styles.activeDayText,
+            ]}
+          >
+            {item.day}
+          </Text>
+          <Text
+            style={[
+              styles.dateText,
+              item.day === 'Thu' && styles.activeDayText,
+            ]}
+          >
+            {item.date}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  </ScrollView>
+</View>
 
-        {/* Days Row */}
-        <View style={styles.daysContainer}>
-          <View style={styles.daysRow}>
-            {[
-              { day: 'Mon', date: '2' },
-              { day: 'Tue', date: '3' },
-              { day: 'Wed', date: '4' },
-              { day: 'Thu', date: '5' },
-              { day: 'Fri', date: '6' },
-            ].map((item, index) => (
-              <TouchableOpacity
-                key={index}
-                style={[
-                  styles.dayButton,
-                  item.day === 'Thu' && styles.activeDayButton,
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.dayText,
-                    item.day === 'Thu' && styles.activeDayText,
-                  ]}
-                >
-                  {item.day}
-                </Text>
-                <Text
-                  style={[
-                    styles.dateText,
-                    item.day === 'Thu' && styles.activeDayText,
-                  ]}
-                >
-                  {item.date}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
 
-        {/* Time & Filters */}
+     
         <View style={styles.filterRow}>
           <View style={styles.timeZone}>
             <Image
@@ -225,41 +228,41 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   daysContainer: {
-    marginTop: hp(1.5),
-  },
-  daysRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  dayButton: {
-    width: wp(16),
-    height: wp(16),
-    backgroundColor: '#fff',
-    borderRadius: wp(3),
-    borderWidth: 1,
-    borderColor: '#D7D7D7',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: hp(2),
-  },
-  activeDayButton: {
-    backgroundColor: '#4BF8BD',
-    borderColor: '#4BF8BD',
-  },
-  dayText: {
-    fontSize: wp(3.5),
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  dateText: {
-    fontSize: wp(3.5),
-    marginTop: hp(0.5),
-    color: '#000',
-  },
-  activeDayText: {
-    color: '#000',
-    fontWeight: 'bold',
-  },
+  marginVertical: hp(1),
+  paddingLeft: wp(0),
+},
+daysRow: {
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+dayButton: {
+  backgroundColor: '#fff',
+  borderRadius: wp(3),
+  paddingVertical: hp(1.2),
+  paddingHorizontal: wp(4),
+  alignItems: 'center',
+  marginRight: wp(1.5),
+  borderWidth:1,
+  borderColor:'#D7D7D7'
+},
+activeDayButton: {
+  backgroundColor: '#74FFD3',
+},
+dayText: {
+  fontSize: wp(3.8),
+  color: '#000',
+    fontWeight:'500'
+},
+dateText: {
+  fontSize: wp(3.6),
+  color: '#000',
+  fontWeight:'500'
+},
+activeDayText: {
+  color: '#000',
+  fontWeight: '600',
+},
+
   filterRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',

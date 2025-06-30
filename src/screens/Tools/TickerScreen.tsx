@@ -27,6 +27,7 @@ const TickerScreen: React.FC = () => {
   const navigation = useNavigation();
   const { wp, hp } = useResponsive();
   const styles = getStyles(wp, hp);
+  const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
 
   const [activeTab, setActiveTab] = useState('Forex');
   const [isModalVisible, setModalVisible] = useState(false);
@@ -38,13 +39,13 @@ const TickerScreen: React.FC = () => {
   const openModal = () => {
     setSearch('');
     setFilteredSymbols(allSymbols);
- setModalVisible(!isModalVisible);
+    setModalVisible(!isModalVisible);
   };
 
   const filterSymbols = (text: string) => {
     setSearch(text);
     setFilteredSymbols(
-      allSymbols.filter(sym => sym.toLowerCase().includes(text.toLowerCase()))
+      allSymbols.filter(sym => sym.toLowerCase().includes(text.toLowerCase())),
     );
   };
 
@@ -104,7 +105,14 @@ const TickerScreen: React.FC = () => {
             style={styles.searchInput}
           />
           {filteredSymbols.map((symbol, idx) => (
-            <TouchableOpacity key={idx} style={styles.symbolItem}>
+            <TouchableOpacity
+              key={idx}
+              style={styles.symbolItem}
+              onPress={() => {
+                setSelectedSymbol(symbol); // Set selected symbol
+                setModalVisible(false); // Close modal
+              }}
+            >
               <Text style={styles.symbolText}>{symbol}</Text>
             </TouchableOpacity>
           ))}
@@ -118,6 +126,41 @@ const TickerScreen: React.FC = () => {
             <Text style={styles.label}>Choose Symbol</Text>
             <Text style={styles.addIcon}>＋</Text>
           </TouchableOpacity>
+
+          {selectedSymbol && (
+            <View style={styles.card}>
+              <View style={styles.row}>
+                <Text style={styles.title}>Symbol</Text>
+                <Text style={styles.value}>{selectedSymbol}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.title}>Bid Price</Text>
+                <Text style={[styles.value, { color: 'green' }]}>
+                  1.14182 ▲
+                </Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.title}>Ask Price</Text>
+                <Text style={[styles.value, { color: 'green' }]}>
+                  1.14182 ▲
+                </Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.title}>Spread</Text>
+                <Text style={[styles.value, { color: 'red' }]}>0.00002 ▼</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.title}>Commissions</Text>
+                <Text style={styles.value}>3.0</Text>
+              </View>
+              {/* <TouchableOpacity
+                style={styles.removeButton}
+                onPress={() => setSelectedSymbol(null)}
+              >
+                <Text style={styles.removeText}>Remove</Text>
+              </TouchableOpacity> */}
+            </View>
+          )}
         </View>
       ) : (
         <FlatList
@@ -159,7 +202,10 @@ const TickerScreen: React.FC = () => {
 };
 
 export default TickerScreen;
-const getStyles = (wp, hp) =>
+const getStyles = (
+  wp: { (widthPercent: number | string): number; (arg0: number): any },
+  hp: { (heightPercent: number | string): number; (arg0: number): number },
+) =>
   StyleSheet.create({
     container: { flex: 1, backgroundColor: '#fff' },
     tabContainer: {
@@ -247,13 +293,13 @@ const getStyles = (wp, hp) =>
       padding: wp(5),
       maxHeight: hp(70),
       borderWidth: wp(0.5),
-      borderColor: '#00AEEF',
+      borderColor: '#fff',
     },
     searchInput: {
       borderWidth: wp(0.3),
       borderColor: '#ddd',
       borderRadius: wp(3),
-      paddingVertical: hp(1.3),
+      paddingVertical: hp(2),
       paddingHorizontal: wp(4),
       marginVertical: hp(1),
       fontSize: wp(4),
@@ -261,8 +307,6 @@ const getStyles = (wp, hp) =>
     },
     symbolItem: {
       paddingVertical: hp(1.3),
-      borderBottomWidth: 1,
-      borderBottomColor: '#eee',
     },
     symbolText: {
       fontSize: wp(4.2),

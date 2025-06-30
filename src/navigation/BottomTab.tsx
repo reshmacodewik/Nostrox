@@ -1,11 +1,13 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/HomeScreen';
+
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ToolsScreen from '../screens/Tools';
 import CalendarScreen from '../screens/CalendarScreen';
 import MenuScreen from '../screens/MenuScreen';
+import AccountScreen from '../screens/AccountScreen';
+import HomeScreen from '../screens/HomeScreen';
 
 
 export type BottomTabParamList = {
@@ -56,7 +58,7 @@ const BottomTabNavigator = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Accounts" component={HomeScreen} />
+      <Tab.Screen name="Accounts" component={AccountScreen} />
       <Tab.Screen name="Tools" component={ToolsScreen} />
       <Tab.Screen name="Calendar" component={CalendarScreen} />
       <Tab.Screen name="Menu" component={MenuScreen} />
