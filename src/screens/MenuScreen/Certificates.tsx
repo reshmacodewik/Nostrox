@@ -9,8 +9,10 @@ import {
 } from 'react-native';
 import { useResponsive } from 'react-native-responsive-hook';
 import Header from '../../components/Header';
+import { useNavigation } from '@react-navigation/native';
 
 const CertificatesScreen = () => {
+  const navigation = useNavigation();
   const { wp, hp } = useResponsive();
   const [selected, setSelected] = useState('All');
 
@@ -29,7 +31,7 @@ const CertificatesScreen = () => {
    <Header
         title="Certificates"
         customIcon={require('../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Back pressed')}
+        onIconPress={() => navigation.goBack()}
       />
      
       <ScrollView contentContainerStyle={styles(wp, hp).contentContainer}>

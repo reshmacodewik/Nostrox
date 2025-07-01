@@ -2,8 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { useResponsive } from 'react-native-responsive-hook';
 import Header from '../../components/Header';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 const ContractsScreen: React.FC = () => {
+    const navigation = useNavigation<NavigationProp<any>>();
   const { wp, hp } = useResponsive();
 
   return (
@@ -11,7 +13,7 @@ const ContractsScreen: React.FC = () => {
       <Header
         title="Contracts"
         customIcon={require('../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Back pressed')}
+        onIconPress={() => navigation.goBack()}
       />
 
       <View style={{ paddingHorizontal: wp(5), paddingVertical: hp(2) }}>

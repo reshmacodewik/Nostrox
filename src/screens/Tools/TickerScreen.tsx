@@ -58,7 +58,7 @@ const TickerScreen: React.FC = () => {
       <Header
         title="Ticker"
         customIcon={require('../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Back')}
+        onIconPress={() => navigation.goBack()}
       />
 
       {/* Tabs */}

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useResponsive } from 'react-native-responsive-hook';
 import Header from '../../components/Header';
+import { useNavigation } from '@react-navigation/native';
 
 const deals = [
   {
@@ -31,6 +32,7 @@ const deals = [
 ];
 
 const PartnershipDealsScreen = () => {
+  const navigation = useNavigation();
   const { wp, hp } = useResponsive();
 
   return (
@@ -38,7 +40,7 @@ const PartnershipDealsScreen = () => {
       <Header
         title="Partnership Deals"
         customIcon={require('../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Back pressed')}
+        onIconPress={() => navigation.goBack ()}
       />
       <View style={styles.innerContainer}>
         <Text style={[styles.description, { fontSize: wp(3.8) }]}>

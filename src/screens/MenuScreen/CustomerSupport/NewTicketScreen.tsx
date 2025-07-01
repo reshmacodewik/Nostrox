@@ -11,6 +11,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useResponsive } from 'react-native-responsive-hook';
 import Header from '../../../components/Header';
 
+
+
 const NewTicketScreen = () => {
   const navigation = useNavigation<any>();
   const { wp, hp } = useResponsive();
@@ -76,7 +78,7 @@ const NewTicketScreen = () => {
       <Header
         title="New Ticket"
         customIcon={require('../../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Back pressed')}
+        onIconPress={() => navigation.goBack()}
       />
       <View style={styles.innercontainer}>
         <Text style={styles.label}>Subject</Text>

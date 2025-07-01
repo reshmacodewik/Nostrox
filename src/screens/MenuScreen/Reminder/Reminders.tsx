@@ -43,7 +43,7 @@ const ReminderScreen = () => {
       <Header
         title="Reminders"
         customIcon={require('../../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Back pressed')}
+        onIconPress={() => navigation.goBack()}
       />
 
       <ScrollView contentContainerStyle={{ paddingBottom: hp(10) }}>

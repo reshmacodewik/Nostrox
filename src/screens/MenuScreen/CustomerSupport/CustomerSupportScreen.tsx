@@ -46,7 +46,7 @@ const CustomerSupportScreen = () => {
       <Header
         title="Customer Support"
         customIcon={require('../../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Settings pressed')}
+        onIconPress={() => navigation.goBack()}
       />
       <View style={styles.innercontainer}>
         <View style={styles.rowBetween}>

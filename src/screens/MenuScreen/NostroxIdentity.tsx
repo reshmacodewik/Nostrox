@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useResponsive } from 'react-native-responsive-hook';
 import Header from '../../components/Header';
+import { useNavigation } from '@react-navigation/native';
 
 const NostroxIdentity: React.FC = () => {
+  const navigation = useNavigation();
   const { wp, hp } = useResponsive();
 
   const styles = getStyles(wp, hp);
@@ -12,7 +14,7 @@ const NostroxIdentity: React.FC = () => {
       <Header
         title="Nostrox Identity"
         customIcon={require('../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Settings pressed')}
+        onIconPress={() => navigation.goBack()}
       />
       <Text style={styles.descriptionreg}>
         Lorem Ipsum is simply dummy text of the printing and type setting

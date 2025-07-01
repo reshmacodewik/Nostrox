@@ -139,7 +139,7 @@ const BillingInfo: React.FC = () => {
       <Header
         title="Billing info"
         customIcon={require('../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Settings pressed')}
+        onIconPress={() => navigation.goBack()}
       />
 
       <FlatList

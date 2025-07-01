@@ -11,10 +11,11 @@ import {
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useResponsive } from 'react-native-responsive-hook';
 import Header from '../../../components/Header';
-
+import { useNavigation } from '@react-navigation/native';
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const AddReminder: React.FC = () => {
+  const navigation = useNavigation<any>();
   const { wp, hp } = useResponsive();
   const styles = getStyles(wp, hp);
 
@@ -39,7 +40,7 @@ const AddReminder: React.FC = () => {
       <Header
         title="Add Reminders"
         customIcon={require('../../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Back pressed')}
+        onIconPress={() => navigation.goBack()}
       />
 
       <View style={styles.formContainer}>
@@ -144,3 +145,4 @@ const getStyles = (wp: (val: number) => number, hp: (val: number) => number) =>
       height: wp(8),
     },
   });
+

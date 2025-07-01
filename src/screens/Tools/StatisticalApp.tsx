@@ -9,8 +9,10 @@ import {
 } from 'react-native';
 import { BarChart } from 'react-native-gifted-charts';
 import Header from '../../components/Header';
+import { useNavigation } from '@react-navigation/native';
 
 const StatisticalApp = () => {
+  const navigation = useNavigation<any>();
   const [activeTab, setActiveTab] = useState('Market');
   const [activeChart, setActiveChart] = useState('Table');
 
@@ -19,7 +21,7 @@ const StatisticalApp = () => {
       <Header
         title="Statistical App"
         customIcon={require('../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Back pressed')}
+        onIconPress={() => navigation.goBack()}
       />
 
       <ScrollView

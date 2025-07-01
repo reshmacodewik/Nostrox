@@ -14,9 +14,11 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import CheckBox from '@react-native-community/checkbox';
 import { Dimensions } from 'react-native';
 import Header from '../../components/Header';
+import { useNavigation } from '@react-navigation/native';
 
 const TradersAnalysis = () => {
   const { hp, wp } = useResponsiveScreen();
+  const navigation = useNavigation<any>();
 
   const [profitType, setProfitType] = React.useState('Amount');
   const [startDate, setStartDate] = React.useState<Date | undefined>();
@@ -43,7 +45,7 @@ const TradersAnalysis = () => {
       <Header
         title="Traders Analysis"
         customIcon={require('../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Back pressed')}
+        onIconPress={() =>navigation.goBack()}
       />
 
       <ScrollView contentContainerStyle={{ paddingBottom: hp(5) }}>

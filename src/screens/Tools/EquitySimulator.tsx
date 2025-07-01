@@ -9,8 +9,10 @@ import {
 import { useResponsive } from 'react-native-responsive-hook';
 import Header from '../../components/Header';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 
 const EquitySimulator: React.FC = () => {
+  const navigation = useNavigation<any>();
   const { wp, hp } = useResponsive();
   const styles = getStyles(wp, hp);
 
@@ -39,7 +41,7 @@ const EquitySimulator: React.FC = () => {
       <Header
         title="Equity Simulator"
         customIcon={require('../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Back pressed')}
+        onIconPress={() => navigation.goBack()}
       />
 
       <ScrollView contentContainerStyle={{ paddingBottom: hp(5) }}>

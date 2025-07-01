@@ -227,7 +227,7 @@ const PremiumScreen: React.FC = ({ navigation }) => {
                 style={[styles.cardImageContainer, { marginBottom: hp(2) }]}
               >
                 <Image
-                  source={require('../../../assets/image/primecard.png')}
+                  source={require('../../../assets/image/primeyellow.png')}
                   style={{
                     width: '100%',
                     height: hp(18),

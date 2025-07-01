@@ -30,7 +30,7 @@ const SettingsScreen: React.FC = () => {
       <Header
         title="Settings"
         customIcon={require('../../../../assets/icon/backarrow.png')}
-        onIconPress={() => console.log('Settings pressed')}
+        onIconPress={() => navigation.goBack()}
       />
 
       <View
