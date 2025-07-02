@@ -22,9 +22,7 @@ const TradersAnalysis = () => {
 
   const [profitType, setProfitType] = React.useState('Amount');
   const [startDate, setStartDate] = React.useState<Date | undefined>();
-  const [endDate, setEndDate] = React.useState<Date | undefined>();
   const [showStartPicker, setShowStartPicker] = React.useState(false);
-  const [showEndPicker, setShowEndPicker] = React.useState(false);
   const [accountTypes, setAccountTypes] = React.useState({
     nostrox: false,
     freeTrial: false,
