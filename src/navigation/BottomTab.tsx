@@ -7,7 +7,7 @@ import ToolsScreen from '../screens/Tools';
 import CalendarScreen from '../screens/CalendarScreen';
 import MenuScreen from '../screens/MenuScreen';
 import AccountScreen from '../screens/AccountScreen';
-import HomeScreen from '../screens/HomeScreen';
+import HomeScreen from '../screens/Home/HomeScreen';
 
 export type BottomTabParamList = {
   Home: undefined;

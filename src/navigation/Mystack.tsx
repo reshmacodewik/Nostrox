@@ -31,6 +31,7 @@ import ReminderScreen from '../screens/MenuScreen/Reminder/Reminders';
 import AddReminder from '../screens/MenuScreen/Reminder/AddReminder';
 import StatisticalApp from '../screens/Tools/StatisticalApp';
 import AccountScreen from '../screens/AccountScreen';
+import TradingScreen from '../screens/Home/Trade/ TradingScreen';
 
 // Define navigation param types
 export type RootStackParamList = {
@@ -64,6 +65,7 @@ export type RootStackParamList = {
   TickerScreen: undefined;
   TradersAnalysis: undefined;
   StatisticalApp: undefined;
+  TradingScreen: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -110,6 +112,7 @@ const MyStack: React.FC = () => {
       <Stack.Screen name="TickerScreen" component={TickerScreen} />
       <Stack.Screen name="TradersAnalysis" component={TradersAnalysis} />
       <Stack.Screen name="StatisticalApp" component={StatisticalApp} />
+      <Stack.Screen name="TradingScreen" component={TradingScreen} />
     </Stack.Navigator>
   );
 };

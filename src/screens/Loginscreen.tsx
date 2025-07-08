@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import {
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: '#5DFFCD',
-    paddingVertical: hp(1.6),
+    paddingVertical: hp(1.5),
     borderRadius: wp(10),
     marginTop: hp(4),
     alignItems: 'center',

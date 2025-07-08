@@ -39,8 +39,8 @@ const OnboardingScreen: React.FC = () => {
     <View style={styles.slide}>
       <Image source={item.image} style={[styles.image, { width: wp(92), height: hp(40) }]} resizeMode="contain" />
       <View style={styles.textContainer}>
-        <Text style={[styles.title, { fontSize: wp(9) }]}>{item.title}</Text>
-        <Text style={[styles.text, { fontSize: wp(4), marginBottom: hp(5) }]}>{item.text}</Text>
+        <Text style={[styles.title, { fontSize: wp(11)}]}>{item.title}</Text>
+        <Text style={[styles.text, { fontSize: wp(4.5), marginBottom: hp(5) }]}>{item.text}</Text>
       </View>
     </View>
   );
@@ -77,7 +77,7 @@ const OnboardingScreen: React.FC = () => {
           </View>
         )}
         renderDoneButton={() => (
-          <View style={[styles.bottomButton, { paddingVertical: hp(2), paddingHorizontal: wp(6), marginBottom: hp(6) }]}>
+          <View style={[styles.bottomButton, { paddingVertical: hp(1.5), paddingHorizontal: wp(6), marginBottom: hp(6) }]}>
             <Text style={[styles.bottomButtonText, { fontSize: wp(4) }]}>Get Started</Text>
           </View>
         )}
@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   textContainer: {
-    alignItems: 'center',
-    marginHorizontal: 10,
+    
+    marginHorizontal: 0,
   },
   bottomButton: {
     backgroundColor: '#5DFFCD',
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   
   },
   text: {
-    color: '#666',
+    color: '#000',
     lineHeight: 28,
    
   },
