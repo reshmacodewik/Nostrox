@@ -3,12 +3,11 @@ import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import CandleChart from '../../../components/components/CandleChart';
 import styles from './style';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import { Table, Row, Rows } from 'react-native-table-component';
-
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 const TradingScreen = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
   const timeFilters = ['1Hour', '1Day', '1Month', '1Year'];
   const tradePairs = ['BTC/USD', 'ETH/USD', 'LTC/USD', 'XRP/USD', 'EOS/USD'];
-
 
   const orderBookData = [
     { price: '30,113.84', amount: '1,76676', time: '09:41:13', type: 'sell' },
@@ -28,7 +27,11 @@ const TradingScreen = () => {
       <View style={styles.headerWrapper}>
         <View style={styles.headerRow}>
           <TouchableOpacity>
-            <SimpleLineIcons name="arrow-left" size={25} />
+            <SimpleLineIcons
+              name="arrow-left"
+              size={25}
+              onPress={() => navigation.goBack()}
+            />
           </TouchableOpacity>
           <Text style={styles.heading}>Trading</Text>
           <TouchableOpacity>
@@ -109,60 +112,60 @@ const TradingScreen = () => {
             ))}
           </ScrollView>
         </View>
-       <View style={styles.tableHeader}>
-        <Text style={[styles.headerCell, { flex: 2 }]}>Price</Text>
-        <Text style={[styles.headerCell, { flex: 2 }]}>Amount</Text>
-        <Text style={[styles.headerCell, { flex: 1 }]}>Time</Text>
-      </View>
+        <View style={styles.tableHeader}>
+          <Text style={[styles.headerCell, { flex: 2 }]}>Price</Text>
+          <Text style={[styles.headerCell, { flex: 2 }]}>Amount</Text>
+          <Text style={[styles.headerCell, { flex: 1 }]}>Time</Text>
+        </View>
 
-      {/* Table Rows */}
-      <ScrollView style={styles.tableBody}>
-        {orderBookData.map((item, index) => (
-          <View style={styles.tableRow} key={index}>
-            <Text
-              style={[
-                styles.cell,
-                { flex: 2 },
-                item.type === 'sell' ? styles.priceSell : styles.priceBuy,
-              ]}
-            >
-              {item.price}
-            </Text>
-            <Text
-              style={[
-                styles.cell,
-                styles.amountCell,
-                { flex: 2 },
-                item.type === 'sell' ? styles.amountSell : styles.amountBuy,
-              ]}
-            >
-              {item.amount}
-            </Text>
-            <Text style={[styles.cell, styles.timeCell, { flex: 1 }]}>
-              {item.time}
-            </Text>
-          </View>
-        ))}
-      </ScrollView>
-<View style={styles.buttoncontainer}>
-      {/* Buy and Sell Buttons */}
-         <TouchableOpacity style={styles.sellButton}>
-        <Image
-          source={require('../../../../assets/icon/recieve.png')} // add your sell arrow image here
-          style={styles.icon}
-        />
-        <Text style={styles.sellButtonText}>SELL</Text>
-      </TouchableOpacity>
+        {/* Table Rows */}
+        <ScrollView style={styles.tableBody}>
+          {orderBookData.map((item, index) => (
+            <View style={styles.tableRow} key={index}>
+              <Text
+                style={[
+                  styles.cell,
+                  { flex: 2 },
+                  item.type === 'sell' ? styles.priceSell : styles.priceBuy,
+                ]}
+              >
+                {item.price}
+              </Text>
+              <Text
+                style={[
+                  styles.cell,
+                  styles.amountCell,
+                  { flex: 2 },
+                  item.type === 'sell' ? styles.amountSell : styles.amountBuy,
+                ]}
+              >
+                {item.amount}
+              </Text>
+              <Text style={[styles.cell, styles.timeCell, { flex: 1 }]}>
+                {item.time}
+              </Text>
+            </View>
+          ))}
+        </ScrollView>
+        <View style={styles.buttoncontainer}>
+          {/* Buy and Sell Buttons */}
+          <TouchableOpacity style={styles.sellButton}>
+            <Image
+              source={require('../../../../assets/icon/recieve.png')} // add your sell arrow image here
+              style={styles.icon}
+            />
+            <Text style={styles.sellButtonText}>SELL</Text>
+          </TouchableOpacity>
 
-      {/* Buy Button */}
-      <TouchableOpacity style={styles.buyButton}>
-        <Text style={styles.buyButtonText}>BUY</Text>
-        <Image
-          source={require('../../../../assets/icon/send.png')} // add your buy arrow image here
-          style={styles.iconWhite}
-        />
-      </TouchableOpacity>
-      </View>
+          {/* Buy Button */}
+          <TouchableOpacity style={styles.buyButton}>
+            <Text style={styles.buyButtonText}>BUY</Text>
+            <Image
+              source={require('../../../../assets/icon/send.png')} // add your buy arrow image here
+              style={styles.iconWhite}
+            />
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
