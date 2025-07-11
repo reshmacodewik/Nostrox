@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
      paddingHorizontal: wp(4.5),
-     paddingTop: hp(5),
+     paddingTop: hp(3),
   },
   title: {
     fontSize: wp(6),
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 'auto',
-    height: hp(20),
+    height: hp(25),
      paddingRight: wp(11.8),
   },
   row: {

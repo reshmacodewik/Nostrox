@@ -26,7 +26,7 @@ const TradingScreen = () => {
       {/* Sticky Header */}
       <View style={styles.headerWrapper}>
         <View style={styles.headerRow}>
-          <TouchableOpacity>
+          <TouchableOpacity style={{marginLeft:-10}}>
             <SimpleLineIcons
               name="arrow-left"
               size={25}

@@ -9,15 +9,15 @@ const styles = StyleSheet.create({
   headerWrapper: {
     paddingTop: 10,
     paddingBottom: 5,
-    paddingHorizontal: 16,
-    marginTop: hp(3),
+    paddingHorizontal: 10,
+    marginTop: hp(0),
   },
 
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 12,
   },
 
   backIcon: {
